@@ -1,0 +1,13 @@
+{
+  "name": "@payx/db",
+  "version": "1.0.0",
+  "dependencies": {
+      "@prisma/client": "^5.11.0"
+  },
+  "devDependencies": {
+      "prisma": "5.11.0"
+  },
+  "exports": {
+      "./client": "./index.ts"
+  }
+}
