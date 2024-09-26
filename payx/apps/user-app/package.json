@@ -11,6 +11,7 @@
   "dependencies": {
     "@repo/ui": "*",
     "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.5",
     "next": "^14.2.13",
     "next-auth": "^4.24.7",
     "react": "18.3.1",

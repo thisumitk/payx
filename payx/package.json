@@ -7,13 +7,14 @@
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
-  "dependencies" :
-  {
-    "@repo/ui" : "*",
-    "@payx/db" : "*",
-    "@repo/store" : "*"
+  "dependencies": {
+    "@payx/db": "*",
+    "@payx/lib": "*",
+    "@repo/store": "*",
+    "@repo/ui": "*"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "prettier": "^3.2.5",
     "turbo": "^2.1.2",
     "typescript": "^5.4.5"

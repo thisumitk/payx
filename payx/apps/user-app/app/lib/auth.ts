@@ -1,9 +1,15 @@
-import db from "@payx/db/client";
+import client from "@payx/db/client";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials"
 import bcrypt from "bcrypt";
 
+interface Credentials {
+    email: string;
+    password: string;
+  }
+
 export const authOptions = {
+
     providers: [
       CredentialsProvider({
           name: 'Credentials',
@@ -12,10 +18,10 @@ export const authOptions = {
             password: { label: "Password", type: "password" }
           },
           // TODO: User credentials type from next-auth
-          async authorize(credentials: any) {
+          async authorize(credentials : any) {
             // Do zod validation, OTP validation here
             const hashedPassword = await bcrypt.hash(credentials.password, 10);
-            const existingUser = await db.user.findFirst({
+            const existingUser = await client.user.findFirst({
                 where: {
                     number: credentials.phone
                 }
@@ -34,7 +40,7 @@ export const authOptions = {
             }
 
             try {
-                const user = await db.user.create({
+                const user = await client.user.create({
                     data: {
                         number: credentials.phone,
                         password: hashedPassword

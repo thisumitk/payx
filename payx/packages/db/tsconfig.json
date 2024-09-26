@@ -1,8 +1,12 @@
 {
   "extends": "@repo/typescript-config/base.json",
   "compilerOptions": {
+    "esModuleInterop": true,
+    "moduleResolution": "NodeNext",
     "outDir": "dist"
   },
-  "include": ["src"],
+  "include": [
+    "*.ts"
+  ],
   "exclude": ["node_modules", "dist"]
 }
