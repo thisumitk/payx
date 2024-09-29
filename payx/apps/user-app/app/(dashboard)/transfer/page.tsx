@@ -1,36 +1,47 @@
 import client from "@payx/db/client";
-import { AddMoney } from "../../../../components/AppdMoneyCard";
-import { BalanceCard } from "../../../../components/BalanceCard";
-import { OnRampTransactions } from "../../../../components/OnRampTransactions";
+import { AddMoney } from "../../../../../components/AppdMoneyCard";
+import { BalanceCard } from "../../../../../components/BalanceCard";
+import { OnRampTransactions } from "../../../../../components/OnRampTransactions";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../../user-app/app/lib/auth";
+import { authOptions } from "../../../../user-app/app/lib/auth";
 
 async function getBalance() {
     const session = await getServerSession(authOptions);
+
+    console.log("Session Object:", session);
+
+    const userId = session?.user?.id;
+    console.log("User ID:", userId, "Type:", typeof userId);
+
     const balance = await client.balance.findFirst({
         where: {
             userId: Number(session?.user?.id)
-        }
+        } 
     });
     return {
         amount: balance?.amount || 0,
         locked: balance?.locked || 0
+       
     }
 }
 
 async function getOnRampTransactions() {
     const session = await getServerSession(authOptions);
-    const txns = await client.onRampTransaction.findMany({
+    console.log("User ID:", session?.user?.id);
+   
+   const txns = await client.onRampTransaction.findMany({
         where: {
             userId: Number(session?.user?.id)
         }
     });
-    return txns.map(t => ({
+
+   return txns.map(t => ({
         time: t.startTime,
         amount: t.amount,
         status: t.status,
         provider: t.provider
     }))
+
 }
 
 export default async function() {
@@ -46,6 +57,7 @@ export default async function() {
                 <AddMoney />
             </div>
             <div>
+                
                 <BalanceCard amount={balance.amount} locked={balance.locked} />
                 <div className="pt-4">
                     <OnRampTransactions transactions={transactions} />

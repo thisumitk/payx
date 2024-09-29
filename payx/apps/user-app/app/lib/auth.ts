@@ -1,10 +1,9 @@
 import client from "@payx/db/client";
-import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials"
 import bcrypt from "bcrypt";
 
 interface Credentials {
-    email: string;
+    number: string;
     password: string;
   }
 
@@ -14,16 +13,16 @@ export const authOptions = {
       CredentialsProvider({
           name: 'Credentials',
           credentials: {
-            phone: { label: "Phone number", type: "text", placeholder: "1231231231" },
+            number: { label: "Phone number", type: "text", placeholder: "1231231231" },
             password: { label: "Password", type: "password" }
           },
           // TODO: User credentials type from next-auth
           async authorize(credentials : any) {
             // Do zod validation, OTP validation here
-            const hashedPassword = await bcrypt.hash(credentials.password, 10);
+            console.log("Incoming credentials:", credentials);
             const existingUser = await client.user.findFirst({
                 where: {
-                    number: credentials.phone
+                    number: credentials.number
                 }
             });
 
@@ -33,16 +32,18 @@ export const authOptions = {
                     return {
                         id: existingUser.id.toString(),
                         name: existingUser.name,
-                        email: existingUser.number
+                        number: existingUser.number
                     }
                 }
+                console.error("Invalid password for user:", credentials.number);
                 return null;
             }
 
             try {
+                const hashedPassword = await bcrypt.hash(credentials.password, 10);
                 const user = await client.user.create({
                     data: {
-                        number: credentials.phone,
+                        number: credentials.number,
                         password: hashedPassword
                     }
                 });
@@ -50,7 +51,7 @@ export const authOptions = {
                 return {
                     id: user.id.toString(),
                     name: user.name,
-                    email: user.number
+                    number: user.number
                 }
             } catch(e) {
                 console.error(e);
@@ -59,15 +60,18 @@ export const authOptions = {
             return null
           },
         }),
-
-        GoogleProvider({
+    
+       /* GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID || "",
             clientSecret: process.env.GOOGLE_CLIENT_SECRET || ""
         })
+
+        */
     ],
     secret: process.env.JWT_SECRET || "secret",
     callbacks: {
-        // TODO: can u fix the type here? Using any is bad
+        // TODO: fix the type here
+
         async session({ token, session }: any) {
             session.user.id = token.sub
 

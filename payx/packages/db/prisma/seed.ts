@@ -1,7 +1,9 @@
 import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
+const bcrypt = require('bcrypt');
 
 async function main() {
+
   const alice = await prisma.user.upsert({
     where: { number: '9999999999' },
     update: {},

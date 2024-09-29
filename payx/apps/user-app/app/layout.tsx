@@ -25,12 +25,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      
+      <body className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning = {true}>
       <Providers>
       <AppbarClient/>
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
         {children}
-      </body>
       </Providers>
+      </body>
+      
     </html>
   );
 }
