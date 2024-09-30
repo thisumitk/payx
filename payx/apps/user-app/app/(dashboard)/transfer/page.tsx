@@ -4,12 +4,17 @@ import { BalanceCard } from "../../../../../components/BalanceCard";
 import { OnRampTransactions } from "../../../../../components/OnRampTransactions";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../../../user-app/app/lib/auth";
+import { redirect } from 'next/navigation'
 
 async function getBalance() {
+    
     const session = await getServerSession(authOptions);
+    
+    if (!session?.user) {
+        redirect('/api/auth/signin')
+    }
 
-    console.log("Session Object:", session);
-
+    else {
     const userId = session?.user?.id;
     console.log("User ID:", userId, "Type:", typeof userId);
 
@@ -22,7 +27,7 @@ async function getBalance() {
         amount: balance?.amount || 0,
         locked: balance?.locked || 0
        
-    }
+    }}
 }
 
 async function getOnRampTransactions() {
@@ -45,6 +50,7 @@ async function getOnRampTransactions() {
 }
 
 export default async function() {
+    
     const balance = await getBalance();
     const transactions = await getOnRampTransactions();
 

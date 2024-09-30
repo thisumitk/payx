@@ -4,12 +4,18 @@ const bcrypt = require('bcrypt');
 
 async function main() {
 
+  const hashedAlicePassword = await bcrypt.hash('alice', 10);
+  const hashedBobPassword = await bcrypt.hash('bob', 10);
+
   const alice = await prisma.user.upsert({
     where: { number: '9999999999' },
-    update: {},
+    update: {
+      password: hashedAlicePassword,
+      name: 'alice',
+    },
     create: {
       number: '9999999999',
-      password: 'alice',
+      password: hashedAlicePassword,
       name: 'alice',
       OnRampTransaction: {
         create: {
@@ -24,10 +30,13 @@ async function main() {
   })
   const bob = await prisma.user.upsert({
     where: { number: '9999999998' },
-    update: {},
+    update: {
+      password: hashedBobPassword,
+      name: 'bob',
+    },
     create: {
       number: '9999999998',
-      password: 'bob',
+      password: hashedBobPassword,
       name: 'bob',
       OnRampTransaction: {
         create: {

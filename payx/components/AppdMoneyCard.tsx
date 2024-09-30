@@ -6,19 +6,18 @@ import { Select } from "../packages/ui/src/slect";
 import { useState } from "react";
 import { TextInput } from "../packages/ui/src/TextInput";
 import React from 'react';
+import { createOnRampTransaction } from "../apps/user-app/app/lib/actions/createOnRampTransactions";
+
 
 const AppdMoneyCard = () => {
     return (
         <div>
-            {/* Your component content here */}
+            { }
         </div>
     );
 };
 
 export default AppdMoneyCard;
-
-
-// Resolve the imports above 
 
 const SUPPORTED_BANKS = [{
     name: "HDFC Bank",
@@ -30,9 +29,13 @@ const SUPPORTED_BANKS = [{
 
 export const AddMoney = () => {
     const [redirectUrl, setRedirectUrl] = useState(SUPPORTED_BANKS[0]?.redirectUrl);
+    const [provider, setProvider] = useState(SUPPORTED_BANKS[0]?.name || "");
+    const [value, setValue] = useState(0)
     return <Card title="Add Money">
     <div className="w-full">
-        <TextInput label={"Amount"} placeholder={"Amount"} onChange={() => {
+        <TextInput label={"Amount"} placeholder={"Amount"} onChange={(val) => {
+            
+            setValue(Number(val))
 
         }} />
         <div className="py-4 text-left">
@@ -45,7 +48,8 @@ export const AddMoney = () => {
             value: x.name
         }))} />
         <div className="flex justify-center pt-4">
-            <Button onClick={() => {
+            <Button onClick={async() => {
+                await createOnRampTransaction(provider, value)
                 window.location.href = redirectUrl || "";
             }}>
             Add Money
