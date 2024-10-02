@@ -11,6 +11,7 @@ interface OnRampT {
     amount: number; 
     status: string;
     provider: string;
+    
 }
 
 async function getBalance() {
