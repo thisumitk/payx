@@ -1,5 +1,5 @@
 import express from "express";
-import client from "@payx/db/client";
+import client from "@repo/db/client";
 
 const app = express();
 
