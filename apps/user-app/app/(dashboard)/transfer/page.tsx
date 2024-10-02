@@ -6,6 +6,13 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../../../../user-app/app/lib/auth";
 import { redirect } from 'next/navigation'
 
+interface OnRampT {
+    startTime: Date; 
+    amount: number; 
+    status: string;
+    provider: string;
+}
+
 async function getBalance() {
     
     const session = await getServerSession(authOptions);
@@ -32,15 +39,14 @@ async function getBalance() {
 
 async function getOnRampTransactions() {
     const session = await getServerSession(authOptions);
-    console.log("User ID:", session?.user?.id);
    
-   const txns = await client.onRampTransaction.findMany({
+   const txns : OnRampT []= await client.onRampTransaction.findMany({
         where: {
             userId: Number(session?.user?.id)
         }
     });
 
-   return txns.map(t => ({
+   return txns.map((t : OnRampT) => ({
         time: t.startTime,
         amount: t.amount,
         status: t.status,
