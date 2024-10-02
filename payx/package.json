@@ -18,6 +18,7 @@
     "prettier": "^3.2.5",
     "turbo": "^2.1.2",
     "typescript": "^5.4.5"
+    
   },
   "engines": {
     "node": ">=18"
@@ -27,5 +28,5 @@
     "apps/*",
     "packages/*"
   ]
-  
+
 }
