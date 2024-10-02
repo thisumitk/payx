@@ -13,7 +13,7 @@
     "bcrypt": "^5.1.1",
     "dotenv": "^16.4.5",
     "next": "^14.2.13",
-    "next-auth": "^4.24.7",
+    "next-auth": "^4.24.8",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "recoil": "^0.7.7"
@@ -21,6 +21,8 @@
   "devDependencies": {
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
+    "@types/bcrypt": "^5.0.2",
+    "@types/express": "^5.0.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

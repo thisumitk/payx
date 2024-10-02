@@ -1,4 +1,4 @@
-import client from "@payx/db/client";
+import client from "@repo/db/client";
 import CredentialsProvider from "next-auth/providers/credentials"
 import bcrypt from "bcrypt";
 

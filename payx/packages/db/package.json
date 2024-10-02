@@ -1,14 +1,16 @@
 {
-  "name": "@payx/db",
+  "name": "@repo/db",
   "version": "1.0.0",
   "exports": {
     "./client": "./index.ts"
   },
   "dependencies": {
-    "@prisma/client": "^5.20.0",
-    "prisma": "^5.20.0"
+    "@prisma/client": "^5.20.0"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
-}
+  },
+  "devDependencies": {
+    "prisma": "^5.20.0"
+  }
 }

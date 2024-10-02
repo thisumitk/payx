@@ -1,4 +1,4 @@
-import client from "@payx/db/client";
+import client from "@repo/db/client";
 import { AddMoney } from "../../../../../components/AppdMoneyCard";
 import { BalanceCard } from "../../../../../components/BalanceCard";
 import { OnRampTransactions } from "../../../../../components/OnRampTransactions";
@@ -9,7 +9,7 @@ import { redirect } from 'next/navigation'
 async function getBalance() {
     
     const session = await getServerSession(authOptions);
-    
+
     if (!session?.user) {
         redirect('/api/auth/signin')
     }

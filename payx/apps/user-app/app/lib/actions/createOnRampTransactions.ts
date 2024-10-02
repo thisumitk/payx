@@ -1,11 +1,11 @@
 "use server";
 
-import client from "@payx/db/client";
+import client from "@repo/db/client";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth";
 
 export async function createOnRampTransaction(provider: string, amount: number) {
-    
+
     const session = await getServerSession(authOptions);
     if (!session?.user || !session.user?.id) {
         return {
