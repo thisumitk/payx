@@ -10,6 +10,9 @@
 
     "postinstall": "prisma migrate deploy && prisma generate"
   },
+  "prisma": {
+    "schema": "../../packages/db/prisma/schema.prisma"
+  },
   "dependencies": {
     "@repo/ui": "*",
     "bcrypt": "^5.1.1",
