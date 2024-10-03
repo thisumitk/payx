@@ -5,6 +5,11 @@ const app = express();
 
 app.use(express.json());
 
+app.get('/', (req, res) => {
+    res.send('Hello, the bank webhook is UP! Please Send post req on "/hdfcWebHook to approve credit of money');
+});
+
+
 app.post("/hdfcWebHook", async (req, res) => {
     const paymentInformation = {
         token: req.body.token,
