@@ -1,7 +1,7 @@
 "use server"
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth";
-import client from "@repo/db/client";
+import client, { Prisma } from "@repo/db/client";
 
 export async function p2pTransfer(to: string, amount: number) {
     const session = await getServerSession(authOptions);
@@ -29,7 +29,7 @@ export async function p2pTransfer(to: string, amount: number) {
         },    
     });
 
-    await client.$transaction(async (tx) => {
+    await client.$transaction(async (tx : Prisma.TransactionClient) => {
         const fromBalance = await tx.balance.findUnique({
             where: { userId: Number(from) },
           });
