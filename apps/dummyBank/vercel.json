@@ -1,0 +1,15 @@
+{
+    "builds": [
+      {
+        "src": "/apps/dummyBank/package.json",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "apps/dummyBank/dist/index.js"
+      }
+    ]
+  }
+  
