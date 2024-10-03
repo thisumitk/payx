@@ -3,13 +3,13 @@ import { NextRequest } from "next/server";
 
 let reqCount = 0;
 
-export function middiliware(request : NextRequest){
-
-    reqCount ++;
-    console.log(`req count is : ${reqCount}`);
-    return  NextResponse.next()
+export function middleware(request: NextRequest) {
+    reqCount++;
+    console.log(`req count is: ${reqCount}`);
+    console.log(`Middleware executed for: ${request.nextUrl.pathname}`);
+    return NextResponse.next();
 }
 
 export const config = {
-    matcher: '/api/:path*',
-  }
+    matcher: ['/api/testDummy/:path*'],
+};
