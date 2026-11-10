@@ -1,11 +1,11 @@
-import React from "react";
+import type { ReactNode } from "react";
 
 export function Card({
   title,
   children,
 }: {
   title: string;
-  children?: React.ReactNode;
+  children?: ReactNode;
 }): JSX.Element {
   return (
     <div
